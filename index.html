@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Etch-a-Sketch</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>Etch-A-Sketch BY  "KEDDAD"</h1>
+        <div id="btn-container">
+            <button id="button">RESET</button>
+            <button id="rainbow">Rainbow Colors</button>
+            <button id="black">BLACK</button>
+        </div>
+        <div id="container"></div>
+    </body>
+    <script>
+        const container = document.getElementById("container");
+
+        function makeCells(rows,cols) {
+            container.style.setProperty('--grid-rows', rows);
+            container.style.setProperty('--grid-cols', cols);
+            for (c = 0; c < (rows * cols); c++) {
+                let cell = document.createElement("div");
+                container.appendChild(cell).className = "grid-item";
+            };
+        };
+      makeCells(16,16);
+      let grid = document.getElementsByClassName("grid-item");
+      let gridNumber = 16;
+      
+      for (let i = 0; i<gridNumber*gridNumber; i++) {
+        grid[i].addEventListener('mouseover', () => {
+          grid[i].style.backgroundColor = 'black';
+        });
+      }
+      const btn = document.getElementById("button");
+      btn.addEventListener('click', () => {
+          for(let j = 0; j<gridNumber*gridNumber; j++) {
+            grid[j].style.backgroundColor = 'white';
+          }
+          gridNumber = prompt('How many squares per side you prefer (Default is 16)','');
+          makeCells(gridNumber,gridNumber);
+          
+            for (let i = 0; i<gridNumber*gridNumber; i++) {
+                let newGrid = document.getElementsByClassName("grid-item");
+                newGrid[i].addEventListener('mouseover', () => {
+                newGrid[i].style.backgroundColor = 'black';
+                });
+            }
+          
+        });
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+               color += letters[Math.floor(Math.random() * 16)];
+            }
+          return color;
+        }
+        let rainbow = document.getElementById("rainbow");
+        makeCells(gridNumber,gridNumber);
+        rainbow.addEventListener('click', () => {
+            for (let i = 0; i<gridNumber*gridNumber; i++) {
+                grid[i].addEventListener('mouseover', () => {
+                grid[i].style.backgroundColor = getRandomColor();
+              });
+            }
+        });
+        let black = document.getElementById("black");
+        black.addEventListener('click', () => {
+            for (let i = 0; i<gridNumber*gridNumber; i++) {
+                grid[i].addEventListener('mouseover', () => {
+                grid[i].style.backgroundColor = 'black';
+              });
+            }
+        });
+
+    </script>
+</html>
